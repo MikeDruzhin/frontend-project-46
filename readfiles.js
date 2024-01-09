@@ -1,7 +1,11 @@
 import { readFileSync } from 'fs';
+import _ from 'lodash';
 
-const file1 = readFileSync('./file1.json', 'utf-8');
-const file2 = readFileSync('./file2.json', 'utf-8');
+const parser = (file) => {
+  const data = readFileSync(file, 'utf-8');
+  const parseData = JSON.parse(data)
+  return _.pick(parseData, Object.keys(parseData).sort());
+};
 
-console.log(file1);
-export { file1, file2 };
+//console.log(parser('./fixtures/file1.json'))
+export default parser;
