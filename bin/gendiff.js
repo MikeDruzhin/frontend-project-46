@@ -8,14 +8,14 @@ import parser from '../readfiles.js';
 const gendiff = (filepath1, filepath2) => {
   let data1;
   let data2;
-  if (filepath1.includes(path.resolve(`${cwd()}`, 'fixtures'))) {
+  if (filepath1.includes(path.resolve(`${cwd()}`, '__fixtures__'))) {
     data1 = parser(filepath1);
   }
-  if (filepath2.includes(path.resolve(`${cwd()}`, 'fixtures'))) {
+  if (filepath2.includes(path.resolve(`${cwd()}`, '__fixtures__'))) {
     data2 = parser(filepath2);
   }
-  data1 = parser(path.resolve(`${cwd()}`, 'fixtures', `${filepath1}`));
-  data2 = parser(path.resolve(`${cwd()}`, 'fixtures', `${filepath2}`));
+  data1 = parser(path.resolve(`${cwd()}`, '__fixtures__', `${filepath1}`));
+  data2 = parser(path.resolve(`${cwd()}`, '__fixtures__', `${filepath2}`));
   const keys = _.uniq([...Object.keys(data1), ...Object.keys(data2)]);
   const res = keys.reduce((acc, key) => {
     if (!Object.hasOwn(data2, key)) {
