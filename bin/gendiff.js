@@ -6,7 +6,8 @@ import _ from 'lodash';
 import parser from '../readfiles.js';
 
 const gendiff = (filepath1, filepath2) => {
-  let data1, data2;
+  let data1;
+  let data2;
   if (filepath1.includes(path.resolve(`${cwd()}`, 'fixtures'))) {
     data1 = parser(filepath1);
   }
@@ -20,18 +21,17 @@ const gendiff = (filepath1, filepath2) => {
     if (!Object.hasOwn(data2, key)) {
       acc[`- ${key}`] = data1[key];
     } else if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key)) {
-        if (data1[key] === data2[key]) {
-          acc[`  ${key}`] = data1[key];
-        }
-        else {
-          acc[`- ${key}`] = data1[key];
-          acc[`+ ${key}`] = data2[key];
-        }
-    } else {
+      if (data1[key] === data2[key]) {
+        acc[`  ${key}`] = data1[key];
+      } else {
+        acc[`- ${key}`] = data1[key];
         acc[`+ ${key}`] = data2[key];
+      }
+    } else {
+      acc[`+ ${key}`] = data2[key];
     }
     return acc;
-  }, {})
+  }, {});
   return JSON.stringify(res, null, ' ').replaceAll('"', '').replaceAll(',', '');
 };
 
