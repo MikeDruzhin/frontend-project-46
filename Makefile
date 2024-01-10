@@ -7,3 +7,5 @@ publish: # выполняет отладку публикации пакета
 	npm publish --dry-run
 lint: # запускает eslint
 	npx eslint .
+test: # запускает тестирование
+	npm test
