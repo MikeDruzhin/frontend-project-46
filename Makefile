@@ -9,3 +9,5 @@ lint: # запускает eslint
 	npx eslint .
 test: # запускает тестирование
 	npm test
+test-coverage:
+	npx jest --coverage
