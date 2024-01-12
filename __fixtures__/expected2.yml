@@ -1,0 +1,17 @@
+{
+  env: {
+      - node: true
+      + node: false
+      - jest: true
+  }
+  extends: airbnb-base
++ name: Node CI
+  parserOptions: {
+        ecmaVersion: latest
+        sourceType: module
+  }
++ rules: {
+       + no-console: 0
+       + import/extensions: 0
+  }
+}
