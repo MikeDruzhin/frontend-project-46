@@ -21,7 +21,7 @@ const getParsedData = (file) => {
   }
 };   
 
-//const file = 'filepath1.yml';
-//console.log(getParsedData(file))
+/*const file = 'filepath2.yml';
+console.log(getParsedData(file))*/
 
 export default getParsedData;

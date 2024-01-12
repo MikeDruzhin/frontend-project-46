@@ -10,19 +10,33 @@ const gendiff = (filepath1, filepath2) => {
   const formatter = (diffTree) => {
     const res = diffTree.map((node) => {
       if (_.isArray(node.value)) {
-        /*if (node.status === 'unchanged') {
-          return ` ${node.key} : ${formatter(node.value)}`
+        if (node.status === 'unchanged') {
+          return `  ${node.key}: {\n${formatter(node.value)}  }`
         } else if (node.status === 'added') {
-          return `+ ${node.key} : ${formatter(node.value)}`
-        }*/
-        return `${node.status === 'changed' ? '+' : '-'} ${node.key} : ${formatter(node.value)}`
+          return `+ ${node.key}: {\n${formatter(node.value)}  }`
+        } else {
+          return `- ${node.key}: {\n${formatter(node.value)}  }`
+        } 
       }
-      return `${node.status === 'changed' ? '+' : '-'} ${node.key} : ${node.value}`
-    })
+      if (!Object.hasOwn(node, 'status')) {
+        return `        ${node.key}: ${node.value}\n`;
+      }
+      if (node.status === 'unchanged') {
+        return `        ${node.key}: ${node.value}\n`;
+      } else if (node.status === 'added') {
+        return `      + ${node.key}: ${node.value}\n`;
+      } else {
+        return `      - ${node.key}: ${node.value}\n`;
+      }
+    });
     return res;  
   }
-
-  return formatter(diffTree)//JSON.stringify(getRes(data1, data2), null, '  ').replaceAll('"', '').replaceAll(',', '');
+  const result = JSON.stringify(formatter(diffTree), null, '  ').replaceAll('"', '').replaceAll(',', '');//replace(',', '\n')
+  return formatter(diffTree).join('\n').replaceAll(',', '')
 };
+
+const filepath1 = 'filepath1.yml';
+const filepath2 = 'filepath2.yml';
+console.log(gendiff(filepath1, filepath2))
 
 export default gendiff;
