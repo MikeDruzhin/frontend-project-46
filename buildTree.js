@@ -11,19 +11,6 @@ const buildDiffTree = (data1, data2) => {
       acc.push(tmp);
       return acc;
     }
-    if (!_.isObject(data1[key]) && _.isObject(data2[key])) {
-      const newObj = data2[key];
-      const newKeys = Object.keys(newObj);
-      const newValue = newKeys.reduce((acc1, key1) => {
-        const tmp1 = { key: key1, value: newObj[key1] };
-        acc1.push(tmp1);
-        return acc1;
-      }, []);
-      const tmp = { key, value: newValue };
-      tmp.status = 'added';
-      acc.push(tmp);
-      return acc;
-    }
     const tmp = { key, value: data1[key] };
     const tmp1 = { key, value: data2[key] };
     if (!Object.hasOwn(data1, key)) {

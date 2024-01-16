@@ -14,5 +14,5 @@ test('first', () => {
   expect(gendiff('file1.json', 'file2.json')).toEqual(readFile('expected.json').replaceAll('"', '').replaceAll(',', ''));
 });
 test('second', () => {
-  expect(gendiff('filepath1.yml', 'filepath2.yml')).toEqual(readFile('expected2.yml'));
+  expect(gendiff('filepath1.yml', 'filepath2.yml')).toEqual(readFile('expectedYML.yml'));
 });
