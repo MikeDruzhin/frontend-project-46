@@ -1,5 +1,5 @@
 import _ from 'lodash';
-
+import getParsedData from './parser.js';
 const buildDiffTree = (data1, data2) => {
   const keys1 = Object.keys(data1);
   const keys2 = Object.keys(data2);
@@ -11,6 +11,7 @@ const buildDiffTree = (data1, data2) => {
       acc.push(tmp);
       return acc;
     }
+    
     const tmp = { key, value: data1[key] };
     const tmp1 = { key, value: data2[key] };
     if (!Object.hasOwn(data1, key)) {
@@ -35,4 +36,7 @@ const buildDiffTree = (data1, data2) => {
   return res;
 };
 
+const file1 = getParsedData('file1.json');
+const file2 = getParsedData('file2.json');
+console.log(JSON.stringify(buildDiffTree(file1, file2), null, ' '));
 export default buildDiffTree;

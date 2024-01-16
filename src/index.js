@@ -17,7 +17,7 @@ const gendiff = (filepath1, filepath2) => {
         const tab1 = symbol.repeat(depth * 4);
         if (!_.isArray(item.value)) {
           if (!Object.hasOwn(item, 'status')) {
-            return `${tab}${item.key}: ${item.value}`;
+            return `${tab1}${item.key}: ${item.value}`
           }
           switch (item.status) {
             case 'unchanged':
