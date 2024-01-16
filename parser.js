@@ -15,13 +15,9 @@ const getParsedData = (file) => {
   switch (format) {
     case '.json':
       return JSON.parse(data);
-    case '.yml' || '.yaml':
-      const loadedYaml = yaml.load(data);
-      return _.pick(loadedYaml, Object.keys(loadedYaml).sort());
+    default:
+      return _.pick(yaml.load(data), Object.keys(yaml.load(data)).sort());
   }
-};   
-
-/*const file = 'filepath2.yml';
-console.log(getParsedData(file))*/
+};
 
 export default getParsedData;
