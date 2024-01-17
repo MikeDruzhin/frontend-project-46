@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import getParsedData from './parser.js';
+
 const buildDiffTree = (data1, data2) => {
   const keys1 = Object.keys(data1);
   const keys2 = Object.keys(data2);
@@ -8,12 +8,23 @@ const buildDiffTree = (data1, data2) => {
     if (_.isObject(data1[key]) && _.isObject(data2[key])) {
       const tmp = { key, value: buildDiffTree(data1[key], data2[key]) };
       tmp.status = 'unchanged';
-      acc.push(tmp);
+      acc.push(tmp)
       return acc;
     }
-    
-    const tmp = { key, value: data1[key] };
-    const tmp1 = { key, value: data2[key] };
+    const convert = (obj) => {
+      const keys = Object.keys(obj)
+      const res = keys.reduce((acc, key) => {
+        if (!_.isObject(obj[key])) {
+          acc.push({key, value: obj[key]});
+          return acc;
+        }
+        acc.push({key, value: convert(obj[key])});
+        return acc;
+      }, [])
+      return res;
+    }
+    const tmp = { key, value: _.isObject(data1[key]) ? convert(data1[key]) : data1[key]};
+    const tmp1 = { key, value: _.isObject(data2[key]) ? convert(data2[key]) : data2[key]};
     if (!Object.hasOwn(data1, key)) {
       tmp1.status = 'added';
       acc.push(tmp1);
@@ -36,7 +47,4 @@ const buildDiffTree = (data1, data2) => {
   return res;
 };
 
-const file1 = getParsedData('file1.json');
-const file2 = getParsedData('file2.json');
-console.log(JSON.stringify(buildDiffTree(file1, file2), null, ' '));
 export default buildDiffTree;
