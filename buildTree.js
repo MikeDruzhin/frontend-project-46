@@ -8,23 +8,23 @@ const buildDiffTree = (data1, data2) => {
     if (_.isObject(data1[key]) && _.isObject(data2[key])) {
       const tmp = { key, value: buildDiffTree(data1[key], data2[key]) };
       tmp.status = 'unchanged';
-      acc.push(tmp)
+      acc.push(tmp);
       return acc;
     }
     const convert = (obj) => {
-      const keys = Object.keys(obj)
-      const res = keys.reduce((acc, key) => {
+      const keys = Object.keys(obj);
+      const result = keys.reduce((acc, key) => {
         if (!_.isObject(obj[key])) {
-          acc.push({key, value: obj[key]});
+          acc.push({ key, value: obj[key] });
           return acc;
         }
-        acc.push({key, value: convert(obj[key])});
+        acc.push({ key, value: convert(obj[key]) });
         return acc;
-      }, [])
-      return res;
-    }
-    const tmp = { key, value: _.isObject(data1[key]) ? convert(data1[key]) : data1[key]};
-    const tmp1 = { key, value: _.isObject(data2[key]) ? convert(data2[key]) : data2[key]};
+      }, []);
+      return result;
+    };
+    const tmp = { key, value: _.isObject(data1[key]) ? convert(data1[key]) : data1[key] };
+    const tmp1 = { key, value: _.isObject(data2[key]) ? convert(data2[key]) : data2[key] };
     if (!Object.hasOwn(data1, key)) {
       tmp1.status = 'added';
       acc.push(tmp1);
