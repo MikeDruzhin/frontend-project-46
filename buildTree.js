@@ -36,10 +36,9 @@ const buildDiffTree = (data1, data2) => {
         tmp1.status = 'unchanged';
         acc.push(tmp1);
       } else {
-        tmp.status = 'deleted';
-        tmp1.status = 'added';
+        tmp.status = 'updated';
+        tmp.newValue = data2[key];
         acc.push(tmp);
-        acc.push(tmp1);
       }
     }
     return acc;

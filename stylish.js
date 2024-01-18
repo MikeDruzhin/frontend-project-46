@@ -17,7 +17,10 @@ const stylish = (diffData) => {
             return `${tab1}${item.key}: ${item.value}`;
           case 'added':
             return `${tab}${plus}${item.key}: ${item.value}`;
+          case 'updated':
+            return `${tab}${minus}${item.key}: ${item.value}\n${tab}${plus}${item.key}: ${item.newValue}`;
           default:
+            if (!_.isArray(item.value))
             return `${tab}${minus}${item.key}: ${item.value}`;
         }
       }
@@ -25,6 +28,11 @@ const stylish = (diffData) => {
         return `${tab1}${item.key}: {\n${iter(item.value, depth + 1)}\n${tab1}}`;
       }
       switch (item.status) {
+        case 'updated':
+          if (!_.isArray(item.newValue)) {
+            return `${tab}${minus}${item.key}: {\n${iter(item.value, depth + 1)}\n${tab1}}\n${tab}${plus}${item.key}: ${item.newValue}`;
+          }
+          return `${tab}${minus}${item.key}: {\n${iter(item.value, depth + 1)}\n${tab1}}${tab}${plus}${item.key}: {\n${iter(item.value, depth + 1)}\n${tab1}}`;
         case 'unchanged':
           return `${tab1}${item.key}: {\n${iter(item.value, depth + 1)}\n${tab1}}`;
         case 'added':
