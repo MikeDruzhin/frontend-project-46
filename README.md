@@ -12,3 +12,6 @@ https://asciinema.org/a/9GgNobds3yS0zPEzfQ1jRucxn
 
 stylish format
 https://asciinema.org/a/bCNMvKjUvbWYpECBnCj99fciu
+
+stylish/plain format
+https://asciinema.org/a/C387XtJHo838Go4pt9PMDKczB

@@ -20,8 +20,9 @@ const stylish = (diffData) => {
           case 'updated':
             return `${tab}${minus}${item.key}: ${item.value}\n${tab}${plus}${item.key}: ${item.newValue}`;
           default:
-            if (!_.isArray(item.value))
-            return `${tab}${minus}${item.key}: ${item.value}`;
+            if (!_.isArray(item.value)) {
+              return `${tab}${minus}${item.key}: ${item.value}`;
+            }
         }
       }
       if (!Object.hasOwn(item, 'status')) {
