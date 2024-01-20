@@ -17,8 +17,10 @@ const plain = (diffData) => {
             return `Property '${currentKey}' was added with value: ${quotes}${item.value}${quotes}`;
           case 'deleted':
             return `Property '${currentKey}' was removed`;
-          default:
+          case 'updated':
             return `Property '${currentKey}' was updated. From ${quotes}${item.value}${quotes} to ${quotes}${item.newValue}${quotes}`;
+          default:
+            throw new Error('Unknown status');
         }
       }
       const newValue = iter(item.value, currentKey);

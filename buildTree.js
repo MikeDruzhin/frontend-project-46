@@ -12,14 +12,14 @@ const buildDiffTree = (data1, data2) => {
       return acc;
     }
     const convert = (obj) => {
-      const keys = Object.keys(obj);
-      const result = keys.reduce((acc, key) => {
-        if (!_.isObject(obj[key])) {
-          acc.push({ key, value: obj[key] });
-          return acc;
+      const dataKeys = Object.keys(obj);
+      const result = dataKeys.reduce((resArr, key1) => {
+        if (!_.isObject(obj[key1])) {
+          resArr.push({ key: key1, value: obj[key1] });
+          return resArr;
         }
-        acc.push({ key, value: convert(obj[key]) });
-        return acc;
+        resArr.push({ key: key1, value: convert(obj[key1]) });
+        return resArr;
       }, []);
       return result;
     };

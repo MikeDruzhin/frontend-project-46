@@ -1,0 +1,143 @@
+[
+ {
+  "key": "common",
+  "value": [
+   {
+    "key": "follow",
+    "value": false,
+    "status": "added"
+   },
+   {
+    "key": "setting1",
+    "value": "Value 1",
+    "status": "unchanged"
+   },
+   {
+    "key": "setting2",
+    "value": 200,
+    "status": "deleted"
+   },
+   {
+    "key": "setting3",
+    "value": true,
+    "status": "updated",
+    "newValue": null
+   },
+   {
+    "key": "setting4",
+    "value": "blah blah",
+    "status": "added"
+   },
+   {
+    "key": "setting5",
+    "value": [
+     {
+      "key": "key5",
+      "value": "value5"
+     }
+    ],
+    "status": "added"
+   },
+   {
+    "key": "setting6",
+    "value": [
+     {
+      "key": "doge",
+      "value": [
+       {
+        "key": "wow",
+        "value": "",
+        "status": "updated",
+        "newValue": "so much"
+       }
+      ],
+      "status": "unchanged"
+     },
+     {
+      "key": "key",
+      "value": "value",
+      "status": "unchanged"
+     },
+     {
+      "key": "ops",
+      "value": "vops",
+      "status": "added"
+     }
+    ],
+    "status": "unchanged"
+   }
+  ],
+  "status": "unchanged"
+ },
+ {
+  "key": "group1",
+  "value": [
+   {
+    "key": "baz",
+    "value": "bas",
+    "status": "updated",
+    "newValue": "bars"
+   },
+   {
+    "key": "foo",
+    "value": "bar",
+    "status": "unchanged"
+   },
+   {
+    "key": "nest",
+    "value": [
+     {
+      "key": "key",
+      "value": "value"
+     }
+    ],
+    "status": "updated",
+    "newValue": "str"
+   }
+  ],
+  "status": "unchanged"
+ },
+ {
+  "key": "group2",
+  "value": [
+   {
+    "key": "abc",
+    "value": 12345
+   },
+   {
+    "key": "deep",
+    "value": [
+     {
+      "key": "id",
+      "value": 45
+     }
+    ]
+   }
+  ],
+  "status": "deleted"
+ },
+ {
+  "key": "group3",
+  "value": [
+   {
+    "key": "deep",
+    "value": [
+     {
+      "key": "id",
+      "value": [
+       {
+        "key": "number",
+        "value": 45
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "key": "fee",
+    "value": 100500
+   }
+  ],
+  "status": "added"
+ }
+]

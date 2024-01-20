@@ -19,10 +19,13 @@ const stylish = (diffData) => {
             return `${tab}${plus}${item.key}: ${item.value}`;
           case 'updated':
             return `${tab}${minus}${item.key}: ${item.value}\n${tab}${plus}${item.key}: ${item.newValue}`;
-          default:
+          case 'deleted':
             if (!_.isArray(item.value)) {
               return `${tab}${minus}${item.key}: ${item.value}`;
             }
+            break;
+          default:
+            throw new Error('Unknown status');
         }
       }
       if (!Object.hasOwn(item, 'status')) {
@@ -38,8 +41,10 @@ const stylish = (diffData) => {
           return `${tab1}${item.key}: {\n${iter(item.value, depth + 1)}\n${tab1}}`;
         case 'added':
           return `${tab}${plus}${item.key}: {\n${iter(item.value, depth + 1)}\n${tab1}}`;
-        default:
+        case 'deleted':
           return `${tab}${minus}${item.key}: {\n${iter(item.value, depth + 1)}\n${tab1}}`;
+        default:
+          throw new Error('Unknown status');
       }
     });
     return newData.join('\n');
