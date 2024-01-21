@@ -37,7 +37,7 @@ const buildDiffTree = (data1, data2) => {
         acc.push(tmp1);
       } else {
         tmp.status = 'updated';
-        tmp.newValue = data2[key];
+        tmp.newValue = _.isObject(data2[key]) ? convert(data2[key]) : data2[key];
         acc.push(tmp);
       }
     }
