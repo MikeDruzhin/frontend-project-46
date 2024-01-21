@@ -4,7 +4,8 @@ const plain = (diffData) => {
   const iter = (node, key) => {
     const res = node.flatMap((item) => {
       const condition = (key === '') ? '' : '.';
-      const quotes = (typeof item.value === 'string' || typeof item.newValue === 'string') ? "'" : '';
+      const quotes = (typeof item.value !== 'string') ? '' : "'";
+      const quotes1 = (typeof item.newValue !== 'string') ? '' : "'";
       const currentKey = `${key}${condition}${item.key}`;
       if (!_.isArray(item.value)) {
         if (!Object.hasOwn(item, 'status')) {
@@ -18,7 +19,10 @@ const plain = (diffData) => {
           case 'deleted':
             return `Property '${currentKey}' was removed`;
           case 'updated':
-            return `Property '${currentKey}' was updated. From ${quotes}${item.value}${quotes} to ${quotes}${item.newValue}${quotes}`;
+            if (!_.isArray(item.newValue)) {
+              return `Property '${currentKey}' was updated. From ${quotes}${item.value}${quotes} to ${quotes1}${item.newValue}${quotes1}`;
+            }
+            return `Property '${currentKey}' was updated. From ${quotes}${item.value}${quotes} to [complex value]`;
           default:
             throw new Error('Unknown status');
         }
@@ -28,7 +32,7 @@ const plain = (diffData) => {
       switch (item.status) {
         case 'updated':
           if (!_.isArray(item.newValue)) {
-            return `Property '${currentKey}' was updated. From [complex value] to ${quotes}${item.newValue}${quotes}`;
+            return `Property '${currentKey}' was updated. From [complex value] to ${quotes1}${item.newValue}${quotes1}`;
           }
           break;
         case 'added':
