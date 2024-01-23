@@ -1,7 +1,7 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
 
-const formatSelector = (tree, formatName) => {
+const getSelectedFormat = (tree, formatName) => {
   switch (formatName) {
     case 'stylish':
       return stylish(tree);
@@ -14,4 +14,4 @@ const formatSelector = (tree, formatName) => {
   }
 };
 
-export default formatSelector;
+export default getSelectedFormat;

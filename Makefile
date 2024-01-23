@@ -2,7 +2,7 @@
 install: # устанавливает модули руководстувуясь локфайлом
 	npm ci
 gendiff: # запускает вычислитель отличий
-	node index.js
+	node src/index.js
 publish: # выполняет отладку публикации пакета
 	npm publish --dry-run
 lint: # запускает eslint
