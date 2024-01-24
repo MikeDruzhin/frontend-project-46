@@ -23,18 +23,26 @@ const convertToString = (value, depth) => {
 const stylish = (tree) => {
   const iter = (node, depth) => {
     const replacer = symbol.repeat(spacesPerLevel * depth - leftShift);
-    const result = node.map((item) => {
-      switch (item.status) {
+    const result = node.map(({
+      key,
+      value,
+      newValue,
+      status,
+    }) => {
+      switch (status) {
         case 'nested':
-          return `${replacer}  ${item.key}: {\n${iter(item.value, depth + 1)}\n${replacer}  }`;
+          return `${replacer}  ${key}: {\n${iter(value, depth + 1)}\n${replacer}  }`;
         case 'deleted':
-          return `${replacer}${minus}${item.key}: ${convertToString(item.value, depth)}`;
+          return `${replacer}${minus}${key}: ${convertToString(value, depth)}`;
         case 'added':
-          return `${replacer}${plus}${item.key}: ${convertToString(item.value, depth)}`;
-        case 'updated':
-          return `${replacer}${minus}${item.key}: ${convertToString(item.value, depth)}\n${replacer}${plus}${item.key}: ${convertToString(item.newValue, depth)}`;
+          return `${replacer}${plus}${key}: ${convertToString(value, depth)}`;
+        case 'updated': {
+          const oldValue = convertToString(value, depth);
+          const updatedValue = convertToString(newValue, depth);
+          return `${replacer}${minus}${key}: ${oldValue}\n${replacer}${plus}${key}: ${updatedValue}`;
+        }
         case 'unchanged':
-          return `${replacer}  ${item.key}: ${convertToString(item.value, depth)}`;
+          return `${replacer}  ${key}: ${convertToString(value, depth)}`;
         default:
           throw new Error('Unknown status');
       }

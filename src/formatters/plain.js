@@ -11,17 +11,22 @@ const convertToString = (data) => {
 };
 
 const plain = (diffData) => {
-  const iter = (node, key) => {
-    const res = node.map((item) => {
-      switch (item.status) {
+  const iter = (node, currentKey) => {
+    const res = node.map(({
+      key,
+      value,
+      newValue,
+      status,
+    }) => {
+      switch (status) {
         case 'nested':
-          return iter(item.value, `${key}${item.key}.`);
+          return iter(value, `${currentKey}${key}.`);
         case 'added':
-          return `Property '${key}${item.key}' was added with value: ${convertToString(item.value)}\n`;
+          return `Property '${currentKey}${key}' was added with value: ${convertToString(value)}\n`;
         case 'deleted':
-          return `Property '${key}${item.key}' was removed\n`;
+          return `Property '${currentKey}${key}' was removed\n`;
         case 'updated':
-          return `Property '${key}${item.key}' was updated. From ${convertToString(item.value)} to ${convertToString(item.newValue)}\n`;
+          return `Property '${currentKey}${key}' was updated. From ${convertToString(value)} to ${convertToString(newValue)}\n`;
         case 'unchanged':
           return null;
         default:

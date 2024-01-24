@@ -7,7 +7,7 @@ import getSelectedFormat from './formatters/formatSelector.js';
 const getFormat = (filepath) => path.extname(filepath).slice(1);
 
 const readFile = (filepath) => {
-  const absolutePath = path.resolve(process.cwd(), '__fixtures__', filepath);
+  const absolutePath = path.resolve(process.cwd(), filepath);
   return getParsedData(fs.readFileSync(absolutePath, 'utf-8'), getFormat(filepath));
 };
 
