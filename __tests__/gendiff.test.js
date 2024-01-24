@@ -6,6 +6,7 @@ import gendiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
@@ -20,5 +21,5 @@ test.each([
   [expectedPlain, 'file1.json', 'file2.json', 'plain'],
   [expectedJSON, 'file1.json', 'file2.json', 'json'],
 ])('format test %#', (expected, file1, file2, formatName) => {
-  expect(gendiff(file1, file2, formatName)).toBe(expected);
+  expect(gendiff(getFixturePath(file1), getFixturePath(file2), formatName)).toBe(expected);
 });
